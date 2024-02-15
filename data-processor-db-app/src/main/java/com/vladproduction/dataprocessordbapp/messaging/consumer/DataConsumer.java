@@ -2,6 +2,7 @@ package com.vladproduction.dataprocessordbapp.messaging.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vladproduction.dataprocessordbapp.dao.DataDao;
 import com.vladproduction.dataprocessordbapp.model.Data;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
@@ -14,8 +15,11 @@ public class DataConsumer {
 
     private ObjectMapper objectMapper;
 
-    public DataConsumer(ObjectMapper objectMapper) {
+    private DataDao dataDao;
+
+    public DataConsumer(ObjectMapper objectMapper, DataDao dataDao) {
         this.objectMapper = objectMapper;
+        this.dataDao = dataDao;
     }
 
     @JmsListener(destination = "queue.destination")
@@ -25,7 +29,8 @@ public class DataConsumer {
             TextMessage textMessage = (TextMessage) message;
             String content = textMessage.getText();
             Data transform = transform(content);
-            // todo and safe to db
+            dataDao.saveData(transform);
+
         }
 
 
