@@ -44,8 +44,10 @@ class DataProcessorDbAppApplicationTests {
         ResponseEntity<Void> voidResponseEntity1 = testRestTemplate.postForEntity("/api/producer", data, Void.class);
 
         Assertions.assertTrue(voidResponseEntity1.getStatusCode().value() == 200);
+        List list = testRestTemplate.getForObject("/api/queue_browser", List.class);
         //todo --> embeeded adjustice  and thread.sleep
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
+        Assertions.assertTrue(list.size() == 0);
         int afterSent = dataDao.countAllData();
         Assertions.assertTrue(beforeSent + 1 == afterSent);
         List<Data> dataList = dataDao.findAll();

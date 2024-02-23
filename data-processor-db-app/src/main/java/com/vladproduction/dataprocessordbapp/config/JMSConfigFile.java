@@ -2,7 +2,10 @@ package com.vladproduction.dataprocessordbapp.config;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Destination;
+import jakarta.jms.JMSException;
+import jakarta.jms.QueueBrowser;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ActiveMQQueueBrowser;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,4 +26,7 @@ public class JMSConfigFile {
     public Destination destination(){
         return new ActiveMQQueue(destinationName);
     }
+
+
+
 }
