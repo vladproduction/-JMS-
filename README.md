@@ -1,2 +1,4 @@
 # -JMS-
-Java-Messaging-Systems
+**This repository is a collection of projects JMS in Java;**
+##
+Java-Messaging-System
